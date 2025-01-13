@@ -1,0 +1,37 @@
+
+name: Test Backend
+
+on:
+  # Trigger the workflow manually or on push to the 'backend' branch
+  workflow_dispatch:
+  push:
+    branches:
+    - backend
+
+env:
+    WORKING_DIRECTORY_BACKEND: master-ugr.calculator.back-end/calculator.backend
+    CALCULATOR_BACKEND_URL_UAT: https://ds11-calculator-backend-uat.azurewebsites.net/
+    TEST_PATH_BACKEND: master-ugr.calculator.back-end/tests/calculator.backend.test
+    DOTNET_CORE_VERSION: 8.0.x
+jobs:
+   tests_backend_uat:
+     runs-on: ubuntu-latest
+     steps: 
+        - uses: actions/checkout@v4
+        # Checkout the repository (each job runs in a fresh VM)
+        - name: Setup .NET SDK
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+        # Setup the .NET SDK version specified in the environment variables
+        - name: Copying Original Cucumber files from item folder
+          run: |
+            cp -r items/*.feature ${{ env.TEST_PATH_BACKEND }}
+            rm -rf ${{ env.TEST_PATH_BACKEND }}/*.feature.cs
+        - name: Build
+          run: dotnet build ${{ env.TEST_PATH_BACKEND }} --configuration Debug
+        - name: run tests
+          # Run tests
+          run: dotnet test ${{ env.TEST_PATH_BACKEND }}
+          env:
+            CALCULATOR_BACKEND_URL : ${{ env.CALCULATOR_BACKEND_URL_UAT }}
