@@ -1,0 +1,38 @@
+name: Test frontend
+
+on:
+  # Trigger the workflow manually or on push to the 'master' branch
+  workflow_dispatch:
+  push:
+    branches:
+    - frontend
+
+env:
+    WORKING_DIRECTORY_FRONTEND: master-ugr.calculator.front-end/calculator.frontend
+    CALCULATOR_FRONTEND_URL_UAT: https://ds11-calculator-frontend-uat.azurewebsites.net
+    TEST_PATH_FRONTEND: master-ugr.calculator.front-end/tests/calculator.frontend.tests
+    DOTNET_CORE_VERSION: 8.0.x
+jobs:
+   tests_frontend_uat:
+     runs-on: ubuntu-latest
+     steps: 
+        - uses: actions/checkout@v4
+        # Checkout the repository (each job runs in a fresh VM)
+        - name: Setup .NET SDK
+          uses: actions/setup-dotnet@v4
+          with:
+            dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+        # Setup the .NET SDK version specified in the environment variables
+        - name: Copying Original Cucumber files from item folder
+          run: |
+            cp -r items/*.feature ${{ env.TEST_PATH_FRONTEND }}
+            rm -rf ${{ env.TEST_PATH_FRONTEND }}/*.feature.cs
+        - name: Build
+          run: dotnet build ${{ env.TEST_PATH_FRONTEND }} --configuration Debug
+        - name : Install playwright
+          run: pwsh ${{ env.TEST_PATH_FRONTEND }}/bin/Debug/net8.0/playwright.ps1 install --with-deps
+        - name: run tests
+          # Run tests
+          run: dotnet test ${{ env.TEST_PATH_FRONTEND }}
+          env:
+            CALCULATOR_FRONTEND_URL : ${{ env.CALCULATOR_FRONTEND_URL_UAT }}
