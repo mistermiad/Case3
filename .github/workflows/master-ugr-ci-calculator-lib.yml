@@ -14,8 +14,8 @@ env:
   # Environment variables for the workflow
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
-  WORKING_DIRECTORY: master-ugr.calculator.lib/calculator.lib
-  TEST_PATH: master-ugr.calculator.lib/tests/calculator.lib.test
+  WORKING_DIRECTORY: ds11-ugr.calculator.lib/calculator.lib
+  TEST_PATH: ds11-ugr.calculator.lib/tests/calculator.lib.test
 jobs:
   build:
     runs-on: ubuntu-latest

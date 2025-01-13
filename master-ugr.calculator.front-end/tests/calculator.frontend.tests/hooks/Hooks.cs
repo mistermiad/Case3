@@ -12,7 +12,7 @@ namespace calculator.frontend.tests.hooks
     public class Hooks
     {
         private readonly ScenarioContext _scenarioContext;
-        public Hooks(ScenarioContext scenarioContext) 
+        public Hooks(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
@@ -22,14 +22,14 @@ namespace calculator.frontend.tests.hooks
             var playwright = await Playwright.CreateAsync();
             var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
-                Headless = true 
+                Headless = true
             });
             var context = await browser.NewContextAsync();
             var urlBase =
-                Environment.GetEnvironmentVariable("CALCULATOR_FRONTEND_URL") ?? "https://localhost:7297";
+                Environment.GetEnvironmentVariable("CALCULATOR_FRONTEND_URL") ?? "http://localhost:5140";
             _scenarioContext.Add("urlBase", urlBase);
             var page = await context.NewPageAsync();
-            _scenarioContext.Add("page",page);
+            _scenarioContext.Add("page", page);
         }
     }
 }

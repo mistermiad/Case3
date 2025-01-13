@@ -9,12 +9,12 @@ on:
 
 env:
   # Environment variables for the workflow
-  AZURE_WEBAPP_NAME: master-ugr-ci-frontend-uat
-  AZURE_WEBAPP_PACKAGE_PATH: master-ugr.calculator.front-end/calculator.frontend/publish
+  AZURE_WEBAPP_NAME: ds11-ugr-ci-frontend-uat
+  AZURE_WEBAPP_PACKAGE_PATH: ds11-ugr.calculator.front-end/calculator.frontend/publish
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 8.0.x
-  WORKING_DIRECTORY: master-ugr.calculator.front-end/calculator.frontend
-  TEST_PATH: master-ugr.calculator.front-end/tests/calculator.frontend.tests
+  WORKING_DIRECTORY: ds11-ugr.calculator.front-end/calculator.frontend
+  TEST_PATH: ds11-ugr.calculator.front-end/tests/calculator.frontend.tests
   CALCULATOR_FRONTEND_URL: https://ds11-calculator-frontend-uat.azurewebsites.net
 jobs:
   build:
