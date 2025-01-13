@@ -9,22 +9,22 @@ on:
 
 env:
     # Front-end Domain    
-    AZURE_WEBAPP_NAME_FRONTEND_UAT: master-ugr-ci-frontend-uat
-    AZURE_WEBAPP_NAME_FRONTEND_PROD: master-ugr-ci-frontend
-    AZURE_WEBAPP_PACKAGE_PATH_FRONTEND: master-ugr.calculator.front-end/calculator.frontend/publish
-    WORKING_DIRECTORY_FRONTEND: master-ugr.calculator.front-end/calculator.frontend
+    AZURE_WEBAPP_NAME_FRONTEND_UAT: ds11-ugr-ci-frontend-uat
+    AZURE_WEBAPP_NAME_FRONTEND_PROD: ds11-ugr-ci-frontend
+    AZURE_WEBAPP_PACKAGE_PATH_FRONTEND: ds11-ugr.calculator.front-end/calculator.frontend/publish
+    WORKING_DIRECTORY_FRONTEND: ds11-ugr.calculator.front-end/calculator.frontend
     CALCULATOR_FRONTEND_URL_UAT: https://ds11-calculator-frontend-uat.azurewebsites.net
-    TEST_PATH_FRONTEND: master-ugr.calculator.front-end/tests/calculator.frontend.tests
-    CALCULATOR_FRONTEND_URL_PROD: https://ds11-calculator-frontend.azurewebsites.net/
+    TEST_PATH_FRONTEND: ds11-ugr.calculator.front-end/tests/calculator.frontend.tests
+    CALCULATOR_FRONTEND_URL_PROD: https://ds11-calculator-frontend.azurewebsites.net
     # Back-end Domain
-    AZURE_WEBAPP_NAME_BACKEND_UAT: master-ugr-ci-backend-uat
-    AZURE_WEBAPP_NAME_BACKEND_PROD: master-ugr-ci-backend
-    AZURE_WEBAPP_PACKAGE_PATH_BACKEND: master-ugr.calculator.back-end/calculator.backend/publish
-    WORKING_DIRECTORY_BACKEND: master-ugr.calculator.back-end/calculator.backend
+    AZURE_WEBAPP_NAME_BACKEND_UAT: ds11-ugr-ci-backend-uat
+    AZURE_WEBAPP_NAME_BACKEND_PROD: ds11-ugr-ci-backend
+    AZURE_WEBAPP_PACKAGE_PATH_BACKEND: ds11-ugr.calculator.back-end/calculator.backend/publish
+    WORKING_DIRECTORY_BACKEND: ds11-ugr.calculator.back-end/calculator.backend
     CALCULATOR_BACKEND_URL_UAT: https://ds11-calculator-backend-uat.azurewebsites.net/
-    TEST_PATH_BACKEND: master-ugr.calculator.back-end/tests/calculator.backend.test
+    TEST_PATH_BACKEND: ds11-ugr.calculator.back-end/tests/calculator.backend.test
     # Library Domain
-    TEST_PATH_LIB: master-ugr.calculator.lib/tests/calculator.lib.test
+    TEST_PATH_LIB: ds11-ugr.calculator.lib/tests/calculator.lib.test
 
     CONFIGURATION: Release
     DOTNET_CORE_VERSION: 8.0.x
