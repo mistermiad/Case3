@@ -11,17 +11,17 @@ namespace calculator.frontend.Controllers
         }
         // the base_url is obtained from environment variable
         // CALCULATOR_BACKEND_URL. If it is not present, it uses
-        // "https://master-ugr-ci-backend-uat.azurewebsites.net";
+        // "https://ds11-calculator-backend-uat.azurewebsites.net";
         private string base_url = 
-            Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ?? 
-            "https://master-ugr-ci-backend-uat.azurewebsites.net";
+            Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ??
+            "https://ds11-calculator-backend-uat.azurewebsites.net/";
         const string api = "api/Calculator";
         private double ExecuteOperation(string operation, double num1, double num2)
         {
             var result = 0.0;
             var clientHandler = new HttpClientHandler();
             var client = new HttpClient(clientHandler);
-            var url = $"{base_url}/{api}/{operation}?a={num1}&b={num2}";
+            var url = $"{base_url}{api}/{operation}?a={num1}&b={num2}";
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
