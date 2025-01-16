@@ -11,7 +11,7 @@ namespace calculator.frontend.Controllers
         }
         private string base_url =
             Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ??
-            "https://ds11-calculator-backend-uat.azurewebsites.net";
+            "https://ds11-calculator-backend-uat.azurewebsites.net/";
         const string api = "api/Calculator";
         private KeyValuePair<string,string> ExecuteOperation(string number)
         {
@@ -19,7 +19,7 @@ namespace calculator.frontend.Controllers
             bool? raw_odd = null;
             var clientHandler = new HttpClientHandler();
             var client = new HttpClient(clientHandler);
-            var url = $"{base_url}/api/Calculator/number_attribute?number={number}";
+            var url = $"{base_url}api/Calculator/number_attribute?number={number}";
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
