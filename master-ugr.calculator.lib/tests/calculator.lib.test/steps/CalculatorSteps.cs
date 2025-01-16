@@ -67,9 +67,9 @@ namespace calculator.lib.test.steps
         [Then(@"the result should be (.*)")]
         [Then(@"the result shall be (.*)")]
         [Then(@"the result is (.*)")]
-        public void ThenTheResultShouldBe(string expectedResult)
+        public void ThenTheResultShouldBe(double expectedResult)
         {
-            var result = _scenarioContext.Get<string>("result");
+            var result = _scenarioContext.Get<double>("result");
          
             Assert.Equal(result, expectedResult);
         }
