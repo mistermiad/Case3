@@ -70,7 +70,7 @@ namespace calculator.lib.test.steps
         public void ThenTheResultShouldBe(string expectedResult)
         {
             var result = _scenarioContext.Get<string>("result");
-
+         
             Assert.Equal(result, expectedResult);
         }
     }
