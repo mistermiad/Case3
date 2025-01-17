@@ -42,7 +42,7 @@ namespace calculator.frontend.Controllers
                 {
                     raw_odd = odd.Value<bool>();
                 }
-                if (sqrt != 0)
+                if (sqrt != null)
                 {
                     raw_sqrt = sqrt.Value<Double>();
                 }
@@ -68,7 +68,7 @@ namespace calculator.frontend.Controllers
             }
             var getSquareRoot = 0;
             if (raw_sqrt != 0) {
-                getSquareRoot = raw_sqrt.Value<Double>();
+                getSquareRoot = raw_sqrt;
             }
 
             return (isPrime,isOdd, getSquareRoot);
