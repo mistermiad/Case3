@@ -13,10 +13,11 @@ namespace calculator.frontend.Controllers
             Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ??
             "https://ds11-calculator-backend-uat.azurewebsites.net/";
         const string api = "api/Calculator";
-        private KeyValuePair<string,string> ExecuteOperation(string number)
+        private (string prime, string odd, double sqrt) ExecuteOperation(string number)
         {
             bool? raw_prime =  null;
             bool? raw_odd = null;
+            double raw_sqrt = 0;
             var clientHandler = new HttpClientHandler();
             var client = new HttpClient(clientHandler);
             var url = $"{base_url}api/Calculator/number_attribute?number={number}";
@@ -32,6 +33,7 @@ namespace calculator.frontend.Controllers
                 var json = JObject.Parse(body);
                 var prime = json["prime"];
                 var odd = json["odd"];
+                var sqrt = json["square_root"];
                 if (prime != null)
                 {
                     raw_prime = prime.Value<bool>();
@@ -39,6 +41,10 @@ namespace calculator.frontend.Controllers
                 if (odd != null)
                 {
                     raw_odd = odd.Value<bool>();
+                }
+                if (sqrt != null)
+                {
+                    raw_sqrt = sqrt.Value<Double>();
                 }
 
             }
@@ -60,14 +66,20 @@ namespace calculator.frontend.Controllers
             {
                 isOdd = "No";
             }
-            return new KeyValuePair<string,string>(isPrime,isOdd);
+            double getSquareRoot = 0;
+            if (raw_sqrt != 0) {
+                getSquareRoot = raw_sqrt;
+            }
+
+            return (isPrime,isOdd, getSquareRoot);
         }
         [HttpPost]
         public ActionResult Index(string number)
         {
             var result = ExecuteOperation(number);
-            ViewBag.IsPrime = result.Key;
-            ViewBag.IsOdd = result.Value;
+            ViewBag.IsPrime = result.prime;
+            ViewBag.IsOdd = result.odd;
+            ViewBag.getSquareRoot = result.sqrt;
             return View();
         }
     }
