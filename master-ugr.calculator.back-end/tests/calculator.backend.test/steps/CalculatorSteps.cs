@@ -53,7 +53,6 @@ namespace calculator.lib.test.steps
                     if (result.GetString() == "NaN")
                         _scenarioContext.Add("result", double.NaN);
                 }
-                _scenarioContext.Add("result", result);
             }
         }
 
