@@ -35,7 +35,7 @@ namespace calculator.lib.test.steps
                 var jsonDocument = JsonDocument.Parse(responseBody);
                 var odd = jsonDocument.RootElement.GetProperty("odd").GetBoolean();
                 var prime = jsonDocument.RootElement.GetProperty("prime").GetBoolean();
-                var square = jsonDocument.RootElement.GetProperty("sqrt").GetDouble();
+                var square = jsonDocument.RootElement.GetProperty("square_root").GetDouble();
                 _scenarioContext.Add("isOdd", odd);
                 _scenarioContext.Add("isPrime", prime);
                 _scenarioContext.Add("getSquareRoot", square);
@@ -56,7 +56,7 @@ namespace calculator.lib.test.steps
             Assert.Equal(isOdd, isIt);
         }
 
-        [Then(@"the answer of the square root is (.*)")]
+        [Then(@"the real answer of the square root is (.*)")]
         public void ThenTheSquareRootIs(double realSqrt)
         {
             var mySqrt = _scenarioContext.Get<double>("getSquareRoot");
