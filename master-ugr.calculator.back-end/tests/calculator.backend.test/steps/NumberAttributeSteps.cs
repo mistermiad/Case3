@@ -56,7 +56,7 @@ namespace calculator.lib.test.steps
             Assert.Equal(isOdd, isIt);
         }
 
-        [Then(@"the answer of the square root is (.*)")]
+        [Then(@"the real answer of the square root is (.*)")]
         public void ThenTheSquareRootIs(double realSqrt)
         {
             var mySqrt = _scenarioContext.Get<double>("getSquareRoot");

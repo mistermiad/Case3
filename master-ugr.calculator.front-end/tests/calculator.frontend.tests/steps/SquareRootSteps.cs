@@ -48,4 +48,3 @@ namespace calculator.frontend.tests.steps
         }
     }
 }
-}
