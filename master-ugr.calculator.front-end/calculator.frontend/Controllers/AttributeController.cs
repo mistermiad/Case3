@@ -17,7 +17,7 @@ namespace calculator.frontend.Controllers
         {
             bool? raw_prime =  null;
             bool? raw_odd = null;
-            double? raw_sqrt = null;
+            double raw_sqrt = 0;
             var clientHandler = new HttpClientHandler();
             var client = new HttpClient(clientHandler);
             var url = $"{base_url}api/Calculator/number_attribute?number={number}";
@@ -33,7 +33,7 @@ namespace calculator.frontend.Controllers
                 var json = JObject.Parse(body);
                 var prime = json["prime"];
                 var odd = json["odd"];
-                var sqrt = json["sqrt"];
+                var sqrt = json["square_root"];
                 if (prime != null)
                 {
                     raw_prime = prime.Value<bool>();
@@ -66,9 +66,9 @@ namespace calculator.frontend.Controllers
             {
                 isOdd = "No";
             }
-            var getSquareRoot = 0;
-            if (raw_sqrt != null && raw_sqrt.Value) {
-                getSquareRoot = raw_sqrt.Value<Double>();
+            double getSquareRoot = 0;
+            if (raw_sqrt != 0) {
+                getSquareRoot = raw_sqrt;
             }
 
             return (isPrime,isOdd, getSquareRoot);
