@@ -38,4 +38,4 @@ Scenario: Division by 0
     Given the first number is 10
     And the second number is 0
     When I divide first number by 0
-    Then the result should be "NaN"
+    Then the result should be NaN
