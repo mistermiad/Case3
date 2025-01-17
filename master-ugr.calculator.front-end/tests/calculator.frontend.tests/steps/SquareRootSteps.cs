@@ -41,7 +41,7 @@ namespace calculator.frontend.tests.steps
         public async Task ItShouldBeSquareRoot(string expectedSquareRoot)
         {
             var page = (IPage)_scenarioContext["page"];
-            var resultText = await page.InnerTextAsync("#sqrt");
+            var resultText = await page.InnerTextAsync("#squareRoot");
             var getSquareRoot = _scenarioContext["getSquareRoot"].ToString();
             Assert.Equal(expectedSquareRoot, getSquareRoot);
 
