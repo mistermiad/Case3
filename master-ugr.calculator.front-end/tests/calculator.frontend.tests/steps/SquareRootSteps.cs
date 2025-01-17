@@ -34,7 +34,7 @@ namespace calculator.frontend.tests.steps
             await page.ClickAsync("#attribute");
             var resultTask = page.WaitForSelectorAsync("#squareRoot", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
             var squareRoot = await page.InnerTextAsync("#squareRoot");
-            _scenarioContext.Add("getSquareRoot", SquareRoot);
+            _scenarioContext.Add("getSquareRoot", squareRoot);
         }
 
         [Then("the answer of the square root is (.*)")]

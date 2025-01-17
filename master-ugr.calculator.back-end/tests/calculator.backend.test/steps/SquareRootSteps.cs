@@ -38,7 +38,7 @@ namespace calculator.lib.test.steps
                 response.EnsureSuccessStatusCode();
                 var responseBody = response.Content.ReadAsStringAsync().Result;
                 var jsonDocument = JsonDocument.Parse(responseBody);
-                var result = jsonDocument.RootElement.GetProperty("sqrt").GetDouble();
+                var result = jsonDocument.RootElement.GetProperty("square_root").GetDouble();
 
                 _scenarioContext.Add("getSquareRoot", result);
             }
