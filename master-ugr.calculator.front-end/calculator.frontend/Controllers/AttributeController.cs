@@ -66,7 +66,7 @@ namespace calculator.frontend.Controllers
             {
                 isOdd = "No";
             }
-            var getSquareRoot = 0;
+            double getSquareRoot = 0;
             if (raw_sqrt != 0) {
                 getSquareRoot = raw_sqrt;
             }
