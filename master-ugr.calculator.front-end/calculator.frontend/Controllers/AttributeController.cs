@@ -17,7 +17,7 @@ namespace calculator.frontend.Controllers
         {
             bool? raw_prime =  null;
             bool? raw_odd = null;
-            double raw_sqrt = null;
+            double raw_sqrt = 0;
             var clientHandler = new HttpClientHandler();
             var client = new HttpClient(clientHandler);
             var url = $"{base_url}api/Calculator/number_attribute?number={number}";
@@ -42,7 +42,7 @@ namespace calculator.frontend.Controllers
                 {
                     raw_odd = odd.Value<bool>();
                 }
-                if (sqrt != null)
+                if (sqrt != 0)
                 {
                     raw_sqrt = sqrt.Value<Double>();
                 }
@@ -67,7 +67,7 @@ namespace calculator.frontend.Controllers
                 isOdd = "No";
             }
             var getSquareRoot = 0;
-            if (raw_sqrt != null) {
+            if (raw_sqrt != 0) {
                 getSquareRoot = raw_sqrt.Value<Double>();
             }
 
