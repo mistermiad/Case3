@@ -64,6 +64,7 @@ namespace calculator.lib.test.steps
             ApiCall("add");
         }
         [When(@"I divide first number by second number")]
+        [When(@"I divide first number by 0")]
         public void WhenIDivideFirstNumberBySecondNumber()
         {
             ApiCall("divide");
