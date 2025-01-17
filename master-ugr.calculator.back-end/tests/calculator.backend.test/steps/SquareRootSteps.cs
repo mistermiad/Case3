@@ -32,6 +32,7 @@ namespace calculator.lib.test.steps
             {
                 var urlBase = _scenarioContext.Get<string>("urlBase");
                 var url = $"{urlBase}api/Calculator/";
+                var number = _scenarioContext.Get<double>("number");
                 var api_call = $"{url}number_attribute?number={number}";
                 var response = client.GetAsync(api_call).Result;
                 response.EnsureSuccessStatusCode();
