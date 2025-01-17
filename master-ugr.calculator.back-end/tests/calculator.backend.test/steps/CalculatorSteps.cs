@@ -45,7 +45,14 @@ namespace calculator.lib.test.steps
                 response.EnsureSuccessStatusCode();
                 var responseBody = response.Content.ReadAsStringAsync().Result;
                 var jsonDocument = JsonDocument.Parse(responseBody);
-                var result = jsonDocument.RootElement.GetProperty("result").GetDouble();
+                var result = jsonDocument.RootElement.GetProperty("result");
+                if (result.ValueKind == JsonValueKind.Number)
+                    _scenarioContext.Add("result", result.GetDouble());
+                else if (result.ValueKind == JsonValueKind.String)
+                {
+                    if (result.GetString() == "NaN")
+                        _scenarioContext.Add("result", double.NaN);
+                }
                 _scenarioContext.Add("result", result);
             }
         }
