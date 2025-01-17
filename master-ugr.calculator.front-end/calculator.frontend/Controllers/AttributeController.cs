@@ -67,7 +67,7 @@ namespace calculator.frontend.Controllers
                 isOdd = "No";
             }
             var getSquareRoot = 0;
-            if (raw_sqrt != null && raw_sqrt.Value) {
+            if (raw_sqrt != null) {
                 getSquareRoot = raw_sqrt.Value<Double>();
             }
 
