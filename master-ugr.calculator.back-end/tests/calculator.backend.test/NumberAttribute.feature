@@ -6,11 +6,12 @@ Feature: Number Attribute
 	When number <number> is checked for multiple attributes
 	Then the answer to know whether is prime or not is <prime>
 	And the answer to know whether is odd or not is <odd>
+	And the answer of the square root is <sqrt>
 Examples:
-	| number | prime | odd  | sqrt |
-	| 2      | true  | false| 1.41 |
-	| 6      | false | false| 2.45 |
-	| 7      | true  | true | 2.65 |
-	| 8      | false | false| 2.83 |
-	| 9      | false | true | 3.00 |
-	| 10     | false | false| 3.16 |
+	| number | prime | odd  | sqrt               |
+	| 2      | true  | false| 1.4142135623730951 |
+	| 6      | false | false| 2.449489742783178  |
+	| 7      | true  | true | 2.6457513110645907 |
+	| 8      | false | false| 2.8284271247461903 |
+	| 9      | false | true | 3                  |
+	| 10     | false | false| 3.1622776601683795 |
