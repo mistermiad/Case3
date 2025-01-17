@@ -25,7 +25,7 @@ namespace calculator.lib.test.steps
         [When("Square Root is calculated")]
         public void IGetSquareRoot()
         {
-            var number = _scenarioContext.Get<double>("number");
+            var number = _scenarioContext.Get<int>("number");
             var SquareRoot = NumberAttributter.getSquareRoot(number);
             _scenarioContext.Add("getSquareRoot", SquareRoot);
         }
