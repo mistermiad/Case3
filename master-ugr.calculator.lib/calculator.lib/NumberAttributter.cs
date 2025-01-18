@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace calculator.lib
 {
-    public class NumberAttributter
+    public static class NumberAttributter
     {
         public static bool IsPrime(int number)
         {            

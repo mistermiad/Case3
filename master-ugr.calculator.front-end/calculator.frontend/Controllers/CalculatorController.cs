@@ -5,18 +5,10 @@ namespace calculator.frontend.Controllers
 {
     public class CalculatorController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-        // the base_url is obtained from environment variable
-        // CALCULATOR_BACKEND_URL. If it is not present, it uses
-        // "https://ds11-calculator-backend-uat.azurewebsites.net";
-        private string base_url = 
-            Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ??
-            "https://ds11-calculator-backend-uat.azurewebsites.net";
+        private readonly static string base_url = 
+            Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ?? "https://ds11-calculator-backend-uat.azurewebsites.net";
         const string api = "api/Calculator";
-        private double ExecuteOperation(string operation, double num1, double num2)
+        private static double ExecuteOperation(string operation, double num1, double num2)
         {
             var result = 0.0;
             var clientHandler = new HttpClientHandler();
@@ -39,6 +31,10 @@ namespace calculator.frontend.Controllers
                 }
             }
             return result;
+        }
+        public IActionResult Index()
+        {
+            return View();
         }
         [HttpPost]
         public ActionResult Index(string firstNumber, string secondNumber, string operation)
