@@ -6,7 +6,7 @@ namespace calculator.frontend.Controllers
     public class AttributeController : Controller
     {
         private readonly static string base_url =
-            Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL");
+            Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ?? "https://ds11-calculator-backend-uat.azurewebsites.net";
         const string api = "api/Calculator";
         private (string prime, string odd, double sqrt) ExecuteOperation(string number)
         {
