@@ -9,13 +9,13 @@ updates:
     directory: "/master-ugr.calculator.back-end/"
     schedule:
       interval: "weekly"
-    target-branch: "back-end"
+    target-branch: "backend"
 
   - package-ecosystem: "nuget" 
     directory: "/master-ugr.calculator.front-end/"
     schedule:
       interval: "weekly"
-    target-branch: "front-end"
+    target-branch: "frontend"
 
   - package-ecosystem: "nuget"
     directory: "/master-ugr.calculator.lib/"
