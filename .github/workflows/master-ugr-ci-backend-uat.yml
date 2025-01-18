@@ -6,6 +6,9 @@ on:
   pull_request:
     branches:
       - dev
+  push:
+    branches:
+    - back-end
 
 env:
   # Environment variables for the workflow
@@ -15,7 +18,7 @@ env:
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY: master-ugr.calculator.back-end/calculator.backend
   TEST_PATH: master-ugr.calculator.back-end/tests/calculator.backend.test
-  CALCULATOR_BACKEND_URL: https://ds11-calculator-backend-uat.azurewebsites.net/
+  CALCULATOR_BACKEND_URL: https://ds11-calculator-backend-uat.azurewebsites.net
 jobs:
   build:
     runs-on: ubuntu-latest
