@@ -27,15 +27,18 @@ jobs:
         with:
           java-version: 17
           distribution: 'zulu' # Alternative distribution options are available.
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+
       - name: Cache SonarQube Cloud packages
         uses: actions/cache@v4
         with:
           path: ~\sonar\cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Cache SonarQube Cloud scanner
         id: cache-sonar-scanner
         uses: actions/cache@v4
@@ -43,23 +46,34 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
+
       - name: Install SonarQube Cloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
-      - name: Restore dependencies for back-end
-        run: dotnet restore ${{ env.WORKING_DIRECTORY_BACKEND }}
+
       - name: Restore dependencies for front-end
-        run: dotnet restore ${{ env.WORKING_DIRECTORY_FRONTEND }}
+        run: |
+          dotnet restore ${{ env.WORKING_DIRECTORY_FRONTEND }}
+          dotnet restore ${{ env.WORKING_DIRECTORY_BACKEND }}
+
       - name: Install dotnet coverage
         run: dotnet tool install --global dotnet-coverage
-      - name: Build and analyze in SonarCloud
+
+      - name: Build and analyze in SonarScanner
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }} /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml"
-          dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }} --no-incremental
-          dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }} --no-incremental
-          dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ env.SONAR_TOKEN }}"
+          dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }}
+          dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }}
+
+      - name: Run tests with coverage
+        shell: powershell
+        run: |
+          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_BACKEND }} ${{ env.TEST_DIRECTORY_FRONTEND }}" --format coverage --output coverage.xml
+
+      - name: End analysis with SonarScanner
+        shell: powershell
+        run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
