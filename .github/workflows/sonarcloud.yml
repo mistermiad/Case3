@@ -10,7 +10,7 @@ env:
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY_BACKEND: master-ugr.calculator.back-end/calculator.backend
   WORKING_DIRECTORY_FRONTEND: master-ugr.calculator.front-end/calculator.frontend
-  TEST_DIRECTORY_BACKEND: master-ugr.calculator.back-end/tests/calculator.backend.tests
+  TEST_DIRECTORY_BACKEND: master-ugr.calculator.back-end/tests/calculator.backend.test
   TEST_DIRECTORY_FRONTEND: master-ugr.calculator.front-end/tests/calculator.frontend.tests
   SONARCLOUD_PROJECTKEY: mistermiad_Case3
   SONARCLOUD_ORGANIZATION: mistermiad
@@ -72,12 +72,16 @@ jobs:
           dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }}
 
       - name: Run tests with coverage for backend
+        shell: powershell
         run: |
-          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_BACKEND }}" --format coverage --output backend-coverage.xml
+          ls
+          dotnet-coverage collect "dotnet test /${{ env.TEST_DIRECTORY_BACKEND }}" --format coverage --output backend-coverage.xml
 
       - name: Run tests with coverage for frontend
+        shell: powershell
         run: |
-          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_FRONTEND }}" --format coverage --output frontend-coverage.xml
+          ls
+          dotnet-coverage collect "dotnet test /${{ env.TEST_DIRECTORY_FRONTEND }}" --format coverage --output frontend-coverage.xml
 
       - name: End analysis with SonarScanner
         shell: powershell
