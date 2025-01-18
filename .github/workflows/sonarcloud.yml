@@ -58,6 +58,8 @@ jobs:
         run: |
           dotnet restore ${{ env.WORKING_DIRECTORY_FRONTEND }}
           dotnet restore ${{ env.WORKING_DIRECTORY_BACKEND }}
+          dotnet restore ${{ env.TEST_DIRECTORY_BACKEND }}
+          dotnet restore ${{ env.TEST_DIRECTORY_FRONTEND }}
 
       - name: Install dotnet coverage
         run: dotnet tool install --global dotnet-coverage
@@ -65,17 +67,17 @@ jobs:
       - name: Build and analyze in SonarScanner
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }} /d:sonar.cs.vscoveragexml.reportsPaths=backend-coverage.xml,frontend-coverage.xml"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }}" /d:sonar.cs.vscoveragexml.reportsPaths=backend-coverage.xml,frontend-coverage.xml
           dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }}
           dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }}
 
       - name: Run tests with coverage for backend
         run: |
-          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_BACKEND }}" --format cobertura --output backend-coverage.xml
+          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_BACKEND }}" --format coverage --output backend-coverage.xml
 
       - name: Run tests with coverage for frontend
         run: |
-          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_FRONTEND }}" --format cobertura --output frontend-coverage.xml
+          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_FRONTEND }}" --format coverage --output frontend-coverage.xml
 
       - name: End analysis with SonarScanner
         shell: powershell
