@@ -5,13 +5,8 @@ namespace calculator.frontend.Controllers
 {
     public class AttributeController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-        private string base_url =
-            Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ??
-            "https://ds11-calculator-backend-uat.azurewebsites.net";
+        private readonly static string base_url =
+            Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ?? "https://ds11-calculator-backend-uat.azurewebsites.net";
         const string api = "api/Calculator";
         private (string prime, string odd, double sqrt) ExecuteOperation(string number)
         {
@@ -20,7 +15,7 @@ namespace calculator.frontend.Controllers
             double raw_sqrt = 0;
             var clientHandler = new HttpClientHandler();
             var client = new HttpClient(clientHandler);
-            var url = $"{base_url}/api/Calculator/number_attribute?number={number}";
+            var url = $"{base_url}/{api}/number_attribute?number={number}";
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
@@ -67,11 +62,15 @@ namespace calculator.frontend.Controllers
                 isOdd = "No";
             }
             double getSquareRoot = 0;
-            if (raw_sqrt != 0) {
+            if (raw_sqrt <= -0.00000000000000001 || raw_sqrt >= 0.00000000000000001) {
                 getSquareRoot = raw_sqrt;
             }
 
             return (isPrime,isOdd, getSquareRoot);
+        }
+        public IActionResult Index()
+        {
+            return View();
         }
         [HttpPost]
         public ActionResult Index(string number)

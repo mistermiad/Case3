@@ -22,10 +22,10 @@ namespace calculator.lib
             }
             public static double Divide(double number1, double number2)
             {
-                if (number2 == 0) {
+                if (number2 >= -0.00000000000000001 && number2 <= 0.00000000000000001) {
                     return double.NaN;
                 }
-                return ((double)number1) / ((double)number2);
+                return (number1) / (number2);
             }
             public static bool IsPrime(int number)
             {
