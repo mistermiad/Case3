@@ -10,6 +10,8 @@ env:
   DOTNET_CORE_VERSION: 8.0.x
   WORKING_DIRECTORY_BACKEND: master-ugr.calculator.back-end/calculator.backend
   WORKING_DIRECTORY_FRONTEND: master-ugr.calculator.front-end/calculator.frontend
+  TEST_DIRECTORY_BACKEND: master-ugr.calculator.back-end/tests
+  TEST_DIRECTORY_FRONTEND: master-ugr.calculator.front-end/tests
   SONARCLOUD_PROJECTKEY: mistermiad_Case3
   SONARCLOUD_ORGANIZATION: mistermiad
   SONARCLOUD_HOST_URL: https://sonarcloud.io
@@ -57,4 +59,6 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }}"
           dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }} --configuration Release --no-restore
           dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }} --configuration Release --no-restore
+          dotnet test ${{ env.TEST_DIRECTORY_BACKEND }} --collect "Code Coverage Backend"
+          dotnet test ${{ env.TEST_DIRECTORY_FRONTEND }} --collect "Code Coverage Frontend"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ env.SONAR_TOKEN }}"

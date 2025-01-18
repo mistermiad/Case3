@@ -8,7 +8,7 @@ namespace calculator.frontend.Controllers
         private readonly static string base_url = 
             Environment.GetEnvironmentVariable("CALCULATOR_BACKEND_URL") ?? "https://ds11-calculator-backend-uat.azurewebsites.net";
         const string api = "api/Calculator";
-        private double ExecuteOperation(string operation, double num1, double num2)
+        private static double ExecuteOperation(string operation, double num1, double num2)
         {
             var result = 0.0;
             var clientHandler = new HttpClientHandler();
