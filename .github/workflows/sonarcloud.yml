@@ -59,6 +59,5 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }}"
           dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }} --configuration Release --no-restore
           dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }} --configuration Release --no-restore
-          dotnet test ${{ env.TEST_DIRECTORY_BACKEND }} --collect "Code Coverage Backend"
-          dotnet test ${{ env.TEST_DIRECTORY_FRONTEND }} --collect "Code Coverage Frontend"
+          dotnet test --collect "Code Coverage"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ env.SONAR_TOKEN }}"
