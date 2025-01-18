@@ -53,6 +53,8 @@ jobs:
         run: dotnet restore ${{ env.WORKING_DIRECTORY_BACKEND }}
       - name: Restore dependencies for front-end
         run: dotnet restore ${{ env.WORKING_DIRECTORY_FRONTEND }}
+      - name: Install dotnet coverage
+        run: dotnet tool install --global dotnet-coverage
       - name: Build and analyze in SonarCloud
         shell: powershell
         run: |
