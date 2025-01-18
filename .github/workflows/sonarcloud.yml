@@ -48,6 +48,10 @@ jobs:
         run: |
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool update dotnet-sonarscanner --tool-path .\.sonar\scanner
+      - name: Restore dependencies for back-end
+        run: dotnet restore ${{ env.WORKING_DIRECTORY_BACKEND }}
+      - name: Restore dependencies for front-end
+        run: dotnet restore ${{ env.WORKING_DIRECTORY_FRONTEND }}
       - name: Build and analyze
         shell: powershell
         run: |
