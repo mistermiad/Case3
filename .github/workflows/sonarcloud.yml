@@ -56,8 +56,8 @@ jobs:
       - name: Build and analyze in SonarCloud
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }}"
-          dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }} --configuration Release --no-restore
-          dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }} --configuration Release --no-restore
-          dotnet test --collect "Code Coverage"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }} /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml"
+          dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }} --no-incremental
+          dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }} --no-incremental
+          dotnet-coverage collect "dotnet test" -f xml -o "coverage.xml"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ env.SONAR_TOKEN }}"
