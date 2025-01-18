@@ -62,7 +62,7 @@ namespace calculator.frontend.Controllers
                 isOdd = "No";
             }
             double getSquareRoot = 0;
-            if (number2 <= -0.00000000000000001 || number2 >= 0.00000000000000001) {
+            if (raw_sqrt <= -0.00000000000000001 || raw_sqrt >= 0.00000000000000001) {
                 getSquareRoot = raw_sqrt;
             }
 
