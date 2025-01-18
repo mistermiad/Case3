@@ -79,6 +79,8 @@ jobs:
           ls
           cd tests
           ls
+          cd calculator.backend.test
+          ls
           dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_BACKEND }}" --format coverage --output backend-coverage.xml
 
       - name: Run tests with coverage for frontend
