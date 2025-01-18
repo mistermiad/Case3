@@ -65,7 +65,4 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }}"
           dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }}
           dotnet build ${{ env.WORKING_DIRECTORY_FRONTEND }}
-
-      - name: End analysis with SonarScanner
-        shell: powershell
-        run: dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
