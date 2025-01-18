@@ -71,17 +71,11 @@ jobs:
 
       - name: Run tests with coverage for backend
         run: |
-          dotnet-coverage collect \
-            "dotnet test ${{ env.TEST_DIRECTORY_BACKEND }}" \
-            --format cobertura \
-            --output backend-coverage.xml
+          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_BACKEND }}" --format cobertura --output backend-coverage.xml
 
       - name: Run tests with coverage for frontend
         run: |
-          dotnet-coverage collect \
-            "dotnet test ${{ env.TEST_DIRECTORY_FRONTEND }}" \
-            --format cobertura \
-            --output frontend-coverage.xml
+          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_FRONTEND }}" --format cobertura --output frontend-coverage.xml
 
       - name: End analysis with SonarScanner
         shell: powershell
