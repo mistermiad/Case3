@@ -1,0 +1,53 @@
+name: Analyze code with SonarCloud
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+permissions:
+  pull-requests: read # allows SonarCloud to decorate PRs with analysis results
+
+env:
+  # Environment variables for the workflow
+  DOTNET_CORE_VERSION: 8.0.x
+  WORKING_DIRECTORY_BACKEND: master-ugr.calculator.back-end/calculator.backend
+  WORKING_DIRECTORY_FRONTEND: master-ugr.calculator.front-end/calculator.frontend
+  SONARCLOUD_PROJECTKEY: mistermiad_Case3
+  SONARCLOUD_ORGANIZATION: mistermiad
+  SONARCLOUD_HOST_URL: https://sonarcloud.io
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        # Checkout the repository
+      - name: Listing current dir
+        run: ls -la
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+        # Setup the .NET SDK version specified in the environment variables
+
+      - name: Install SonarCloud scanner
+        run: |
+          dotnet tool install --global dotnet-sonarscanner
+          export PATH="$PATH:/home/runner/.dotnet/tools"
+
+      - name: Restore dependencies for back-end
+        run: dotnet restore ${{ env.WORKING_DIRECTORY_BACKEND }}
+
+      - name: Analyze back-end
+        run: |
+          dotnet-sonarscanner begin \
+            /k:"${{ env.SONARCLOUD_PROJECTKEY }}" \
+            /o:"${{ env.SONARCLOUD_ORGANIZATION }}" \
+            /d:sonar.sources="${{ env.WORKING_DIRECTORY_BACKEND }}" \
+            /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
+            /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }}"
+          dotnet build ${{ env.WORKING_DIRECTORY_BACKEND }} --configuration Release --no-restore
+          dotnet-sonarscanner end \
+            /d:sonar.token="${{ env.SONAR_TOKEN }}"
