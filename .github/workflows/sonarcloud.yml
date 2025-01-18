@@ -52,7 +52,7 @@ jobs:
         run: dotnet restore ${{ env.WORKING_DIRECTORY_BACKEND }}
       - name: Restore dependencies for front-end
         run: dotnet restore ${{ env.WORKING_DIRECTORY_FRONTEND }}
-      - name: Build and analyze
+      - name: Build and analyze in SonarCloud
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"${{ env.SONARCLOUD_PROJECTKEY }}" /o:"${{ env.SONARCLOUD_ORGANIZATION }}" /d:sonar.token="${{ env.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONARCLOUD_HOST_URL }}"
