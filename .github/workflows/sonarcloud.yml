@@ -74,13 +74,12 @@ jobs:
       - name: Run tests with coverage for backend
         shell: powershell
         run: |
-          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_BACKEND }}" --format coverage --output backend-coverage.xml
+          dotnet-coverage collect "dotnet test master-ugr.calculator.back-end/tests/calculator.backend.test/calculator.backend.test.csproj" --f coverage --output backend-coverage.xml
 
       - name: Run tests with coverage for frontend
         shell: powershell
         run: |
-          ls
-          dotnet-coverage collect "dotnet test ${{ env.TEST_DIRECTORY_FRONTEND }}" --format coverage --output frontend-coverage.xml
+          dotnet-coverage collect "dotnet test master-ugr.calculator.front-end/tests/calculator.frontend.tests/calculator.frontend.tests.csproj" --f coverage --output frontend-coverage.xml
 
       - name: End analysis with SonarScanner
         shell: powershell
